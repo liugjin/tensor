@@ -1,0 +1,8 @@
+{
+  "name": "tensor",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,67 @@
+<div>
+ <Navbar [icon]="icon" (onLeftClick)="onOpenChange($event)">历史视频</Navbar>
+ <Drawer class="my-drawer"
+         [ngStyle]="{minHeight: this.height+'px'}"
+         [contentStyle]="{ color: '#A6A6A6', textAlign: 'center', paddingTop: '0' }"
+         [enableDragHandle]="true"
+         [sidebar]="sidebar"
+         [open]="this.state.open"
+         (onOpenChange)="onOpenChange($event)">
+
+     <vg-player (onPlayerReady)="onPlayerReady($event)">
+         <vg-buffering></vg-buffering>
+
+         <vg-controls>
+             <vg-play-pause></vg-play-pause>
+             <vg-playback-button></vg-playback-button>
+
+             <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+             <vg-quality-selector *ngIf="bitrates"
+                                  (onBitrateChange)="setBitrate($event)"
+                                  [bitrates]="bitrates">
+             </vg-quality-selector>
+
+             <vg-scrub-bar>
+                 <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                 <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+             </vg-scrub-bar>
+
+             <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+             <vg-mute></vg-mute>
+             <vg-volume></vg-volume>
+
+             <vg-fullscreen></vg-fullscreen>
+         </vg-controls>
+
+         <video #media
+                (onGetBitrates)="bitrates = $event"
+                [vgMedia]="media"
+                [vgDash]="currentItem.source"
+                [vgHls]="currentItem.source"
+                [vgDRMToken]="currentItem.token"
+                [vgDRMLicenseServer]="currentItem.licenseServers"
+                id="singleVideo"
+                preload="auto"
+                crossorigin>
+         </video>
+     </vg-player>
+
+ </Drawer>
+</div>
+
+<ng-template #icon>
+ <Icon type="ellipsis"></Icon>
+</ng-template>
+
+<ng-template #sidebar>
+ <List>
+   <ListItem *ngFor="let stream of streams; let $index=index"
+             [thumb]="'assets/icon/video.png'"
+             (click)="onClickPlaylistItem(stream, $index)">
+     {{ stream.label }}
+     <span *ngIf="stream == currentItem" [ngStyle]="{'color':'red'}"><ion-icon name="checkmark"></ion-icon></span>
+   </ListItem>
+ </List>
+</ng-template>

@@ -1,0 +1,34 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>
+      历史视频
+    </ion-title>
+  </ion-toolbar>
+</ion-header> -->
+<Navbar [icon]="icon"
+        [rightContent]="rightContent"
+        [mode]="'dark'"
+>
+  视频流媒体
+</Navbar>
+
+<ng-template #icon>
+  <!-- <Icon [type]="'left'"></Icon> -->
+</ng-template>
+
+<ng-template #rightContent>
+  <div style="font-size:26px;line-height:16px;">
+    <ion-icon name="add" (click)="addStream()"></ion-icon>
+  </div>
+</ng-template>
+
+<ion-content>
+  <List [renderHeader]="'video list'">
+    <ListItem *ngFor="let item of URIs" [thumb]="'assets/icon/video.png'"
+      (press)="press(item)"
+      (onClick)="startStream(item)"
+      [arrow]="'horizontal'">
+      {{item}}
+    </ListItem>
+  </List>
+</ion-content>

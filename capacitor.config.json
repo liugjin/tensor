@@ -1,0 +1,6 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "tensor",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
